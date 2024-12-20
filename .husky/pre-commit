@@ -1,0 +1,24 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🏁 Iniciando pre-commit hooks..."
+
+echo "✨ Formateando código..."
+npm run format || {
+  echo "❌ Error al formatear código"
+  exit 1
+}
+
+echo "🔍 Ejecutando linter..."
+npm run lint || {
+  echo "❌ Errores de linting encontrados"
+  exit 1
+}
+
+echo "🕵️ Revisando tipos de TypeScript..."
+npm run tsc || {
+  echo "❌ Errores de tipos de TypeScript encontrados"
+  exit 1
+}
+
+echo "✅ Pre-commit completado exitosamente!"
